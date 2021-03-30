@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frontend Zadatak</title>
+  <!-- <script> type="text/javascript" ; src="https://code.jquery.com/jquery-3.5.1.js"</script>
+  <script> type="text/javascript" ; src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"</script>
+  <script> type="text/javascript" ; src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"</script> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap.min.css">
+</head>
+
+<body>
+  
+<div class="container">
+  <h1 class="text-center mt-5 mb-5">
+    Frontend Zadatak
+  </h1>
+</div>
+
+<div class="container mt-5">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Filter..." [(ngModel)]="filterTerm">
+  </div>
+
+<br>
+
+<div class="d-flex flex-row-reverse bd-highlight mb-2">
+  <div class="p-2 bd-highlight">
+    <select (change)="onTableSizeChange($event)" class="custom-select">
+      <option *ngFor="let size of tableSizes" [ngValue]="size">
+        {{ size }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<br>
+
+  <table id="users" class="table">
+    <thead>
+      <tr>
+        <th (click)="sort('country')">Country
+          <span class="glyphicon sort-icon" *ngIf="key =='country'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('state')">State
+          <span class="glyphicon sort-icon" *ngIf="key =='state'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('fullName')">First and Last Name
+          <span class="glyphicon sort-icon" *ngIf="key =='fullName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('balance')">Balance
+          <span class="glyphicon sort-icon" *ngIf="key =='balance'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('isActive')">Status
+          <span class="glyphicon sort-icon" *ngIf="key =='isActive'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+        <th (click)="sort('registered')">Registered on
+          <span class="glyphicon sort-icon" *ngIf="key =='registered'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of users | orderBy: key : reverse | filter:filterTerm | paginate : {
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+      };
+      let i = index" [class.active]="i == currentIndex">
+        <td>
+          {{user.country}}
+        </td>
+        <td>
+          <div *ngFor="let s of user.state | orderBy: key : reverse | filter:filterTerm | paginate : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+          let i = index" [class.active]="i == currentIndex">
+            {{s.name}}
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let s of user.state | orderBy: key : reverse | filter:filterTerm | paginate : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+          let i = index" [class.active]="i == currentIndex">
+            <div *ngFor="let u of s.users | orderBy: key : reverse | filter:filterTerm | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+            let i = index" [class.active]="i == currentIndex">
+              {{u.fullName}}
+            </div>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let s of user.state | orderBy: key : reverse | filter:filterTerm | paginate : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+          let i = index" [class.active]="i == currentIndex">
+            <div *ngFor="let u of s.users | orderBy: key : reverse | filter:filterTerm | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+            let i = index" [class.active]="i == currentIndex">
+              {{u.balance}}
+            </div>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let s of user.state | orderBy: key : reverse | filter:filterTerm | paginate : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+          let i = index" [class.active]="i == currentIndex">
+            <div *ngFor="let u of s.users | orderBy: key : reverse | filter:filterTerm | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+            let i = index" [class.active]="i == currentIndex">
+              {{u.isActive}} 
+            </div>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let s of user.state | orderBy: key : reverse | filter:filterTerm | paginate : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+          let i = index" [class.active]="i == currentIndex">
+            <div *ngFor="let u of s.users | orderBy: key : reverse | filter:filterTerm | paginate : {
+              itemsPerPage: tableSize,
+              currentPage: page,
+              totalItems: count
+            };
+            let i = index" [class.active]="i == currentIndex">
+              {{u.registered}} 
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+  <div class="d-flex justify-content-center">
+    <pagination-controls 
+      responsive="true" 
+      previousLabel="Prev" 
+      nextLabel="Next" 
+      (pageChange)="onTableDataChange($event)"
+      (pageBoundsCorrection)="onTableDataChange($event)"
+      maxSize="10"
+      directionLinks="true"
+      screenReaderPaginationLabel="Pagination"
+      screenReaderPageLabel="Next page"
+      screenReaderCurrentLabel="You're on page">>
+    </pagination-controls>
+  </div>
+
+  <!-- <script>  
+    $(document).ready(function() {
+      $('#users').DataTable();
+  } );
+  </script> -->
+
+
+</body>
+
+</html>
